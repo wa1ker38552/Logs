@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Logs | ADMIN</title>
+    <link rel="icon" href="/static/assets/icon_scroll.png">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela Round">
+    <script src="/static/script.js"></script>
+    <script src="/static/admin.js"></script>
+    <script>
+      window.onload = function() {
+        updateThemeButton()
+        fetchLogs()
+          .then(logs => {
+            renderLogs(logs, document.querySelector("#logsContainer"))
+            document.querySelector("#logAmount").innerHTML = logs.length
+          })
+        setTheme(getCookie("theme"))
+
+        document.onclick = function(e) {
+          if (e.target == document.querySelector("#modal")) {closeModal()}
+          else if (e.target == document.querySelector("#searchModal")) {closeSearchModal()}
+          else if (e.target.tagName == "IMG" && e.target.parentElement.className == "img-container") {
+            window.open(e.target.src, "_blank")
+          }
+        }
+
+        const dateSearcher = document.querySelector("#date")
+        const results = document.querySelector("#results")
+        dateSearcher.addEventListener("change", async function(e) {
+          results.innerHTML = '<span style="font-style: italic">Loading...</span>'
+          if (dateSearcher.value == "") {
+            results.innerHTML = '<span style="font-style: italic">No results found</span>'
+          } else {
+            const a = await fetch("/fetch?date="+dateSearcher.value)
+            const b = await a.json()
+            if (b.data.length == 0) {
+              results.innerHTML = '<span style="font-style: italic">No results found</span>'
+            } else {
+              renderLogs(b.data, results)
+            }
+          }
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div class="modal-background centered-children" id="modal" style="display: none">
+      <div class="modal">
+        <div style="font-size: 1.5em">Create log entry</div>
+        <textarea id="content" type="text" autocomplete="off" spellcheck="false"></textarea>
+        <input id="tag" placeholder="Tag" type="text" autocomplete="off" spellcheck="false">
+        <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 0.5em">
+          <button onclick="submit()">Submit</button>
+          <button onclick="toggle(this)" id="important"><img src="/static/assets/icon_star.png"></button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background centered-children" id="searchModal" style="display: none">
+      <div class="modal">
+        <div style="font-size: 1.5em">Search for entry</div>
+        <input type="date" id="date" value="2023-09-06" min="2023-09-06">
+        <div id="results">
+          <span style="font-style: italic">No results found</span>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="view-counter">
+        <img src="/static/assets/icon_views.png" title="View count">
+        <span id="viewCount">{{views}}</span>
+      </div>
+      <div class="options-container">
+        <div title="Search" class="create-log-button centered-children" onclick="openSearchModal()"><img class="icon" src="/static/assets/icon_search.png"></div>
+        <div title="Create" class="create-log-button centered-children" onclick="openModal()">+</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr auto">
+        <div style="font-size: 1.5em">Showing <span id="logAmount">...</span> log(s)</div>
+        <div style="display: flex; align-items: center"><a onclick="updateTheme()" id="theme">...</a></div>
+      </div>
+      <div id="logsContainer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,288 @@
+:root {
+  --background: #ffffff;
+  --text: #ffffff;
+  --border: #ffffff;
+  --shadow: #ffffff;
+  --text-light: #ffffff;
+  --accent: #ffffff;
+  --tag: #ffffff;
+  --icon-filter: invert(100%) sepia(0%) saturate(2413%) hue-rotate(184deg) brightness(104%) contrast(68%);
+  --filter: invert(33%) sepia(0%) saturate(19%) hue-rotate(143deg) brightness(102%) contrast(86%);
+}
+
+::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::selection {
+  background: var(--text);
+  color: var(--background);
+}
+
+a {
+  text-decoration: none;
+  color: var(--tag);
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+body {
+  font-family: "Fira Code" !important;
+  background: var(--background);
+  margin: 0;
+  height: 100vh;
+  padding: 0.5em;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  color: var(--text);
+  transition: 0.3s ease-in-out;
+}
+
+textarea, input {
+  outline: 0;
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--border);
+  color: var(--text);
+  font-size: 1.2em;
+  font-family: "Fira Code";
+  padding: 0.2em;
+  box-sizing: border-box;
+  border-radius: 4px;
+  resize: none;
+  height: 8em;
+  background: transparent;
+}
+
+input {
+  height: auto;
+}
+
+button {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--border);
+  font-family: "Fira Code";
+  font-size: 1.2em;
+  padding: 0.2em;
+  box-sizing: border-box;
+  transition: 0.3s ease-in-out;
+  background: var(--background);
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--text);
+}
+
+button:hover:not(.star) {
+  background: var(--shadow);
+}
+
+.centered-children, .img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container {
+  width: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 0.5em;
+  height: 100%;
+  width: 40em;
+}
+
+.log {
+  width: 100%;
+  border-width: 2px;
+  border-style: solid;
+  border-color: var(--border);
+  padding: 0.5em;
+  border-radius: 4px;
+  display: grid;
+  grid-gap: 0.5em;
+  transition: 0.3s ease-in-out;
+  box-sizing: border-box;
+  font-family: "Varela Round";
+}
+
+.log-date {
+  color: var(--text-light);
+  font-size: 1em;
+  user-select: text;
+  font-family: "Fira Code";
+}
+
+.log-content {
+  font-size: 1.2em;
+  user-select: text;
+}
+
+.important {
+  border-color: var(--accent);
+}
+
+#important {
+  display: flex;
+  align-items: center;
+}
+
+#important img {
+  width: 1.5em;
+  height: 1.5em;
+  filter: var(--filter);
+}
+
+#logsContainer {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.2em 0.2em 0.2em 0;
+  box-sizing: border-box;
+}
+
+.tag {
+  background: var(--tag);
+  color: #ffffff;
+  font-size: 1em;
+  border-radius: 2em;
+  padding: 0 0.5em 0 0.5em;
+  font-family: "Fira Code";
+}
+
+.view-counter {
+  position: absolute; 
+  left: 0.5em; 
+  top: 0.5em;
+  color: var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.view-counter img {
+  width: 1.5em;
+  height: 1.5em;
+  filter: var(--filter);
+  margin-right: 0.5em;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  filter: var(--icon-filter);
+}
+
+.modal-background {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.modal {
+  background: var(--background);
+  width: 40em;
+  border-radius: 8px;
+  display: grid;
+  grid-gap: 0.5em;
+  padding: 1em;
+}
+
+.create-log-button {
+  border-color: var(--border);
+  border-style: solid;
+  font-size: 2em;
+  border-radius: 50em;
+  border-width: 2px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.create-log-button:hover {
+  background: var(--shadow);
+}
+
+.img-container img {
+  cursor: pointer;
+}
+
+.options-container {
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+  display: grid;
+  grid-gap: 0.5em;
+}
+
+@keyframes fade-in {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fade-out {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@keyframes move-up {
+  from {margin-top: 100vh;}
+  to {margin-top: 0;}
+}
+
+@keyframes move-down {
+  from {margin-top: 0;}
+  to {margin-top: 100vh;}
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: var(--icon-filter);
+}
+
+#results {
+  height: 20em;
+  display: flex;
+  gap: 0.5em;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+code {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--border);
+  font-family: "Fira Code";
+  font-size: 0.8em;
+}
