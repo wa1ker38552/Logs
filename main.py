@@ -55,6 +55,30 @@ def api_post():
     return {'success': True}
   return {'success': False}
 
+@app.route('/edit/<id>', methods=['POST'])
+def api_edit(id):
+  if flask.request.cookies.get('admin') == os.environ['ADMIN']:
+    out = json.loads(flask.request.data.decode('utf-8'))
+    data = db.get_key('data')
+    data[len(data)-int(id)-1] = {
+      'date': data[len(data)-int(id)-1]['date'],
+      'content': out['content'],
+      'important': out['important'],
+      'tag': out['tag']
+    }
+    db.set_key('data', data)
+    return {'success': True}
+  return {'success': False}
+
+@app.route('/delete/<id>')
+def api_delete(id):
+  if flask.request.cookies.get('admin') == os.environ['ADMIN']:
+    data = db.get_key('data')
+    data.pop(len(data)-int(id)-1)
+    db.set_key('data', data)
+    return {'success': True}
+  return {'success': False}
+
 @app.route('/fetch')
 def api_fetch():
   if (flask.request.args.get('date')):
