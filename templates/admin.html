@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Logs | ADMIN</title>
-    <link rel="icon" href="/static/assets/icon_scroll.png">
+    <link rel="icon" href="/static/icon_scroll.png">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira Code">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela Round">
@@ -15,12 +15,14 @@
           .then(logs => {
             renderLogs(logs, document.querySelector("#logsContainer"))
             document.querySelector("#logAmount").innerHTML = logs.length
+            renderEditLogs()
           })
         setTheme(getCookie("theme"))
 
         document.onclick = function(e) {
           if (e.target == document.querySelector("#modal")) {closeModal()}
           else if (e.target == document.querySelector("#searchModal")) {closeSearchModal()}
+          else if (e.target == document.querySelector("#editModal")) {animateModalClose(document.querySelector("#editModal"))}
           else if (e.target.tagName == "IMG" && e.target.parentElement.className == "img-container") {
             window.open(e.target.src, "_blank")
           }
@@ -54,6 +56,17 @@
         <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 0.5em">
           <button onclick="submit()">Submit</button>
           <button onclick="toggle(this)" id="important"><img src="/static/assets/icon_star.png"></button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-background centered-children" id="editModal" style="display: none">
+      <div class="modal">
+        <div style="font-size: 1.5em">Edit log entry</div>
+        <textarea id="editContent" type="text" autocomplete="off" spellcheck="false"></textarea>
+        <input id="editTag" placeholder="Tag" type="text" autocomplete="off" spellcheck="false">
+        <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 0.5em">
+          <button id="editSave">Save</button>
+          <button onclick="toggle(this)" id="editImportant"><img src="/static/assets/icon_star.png"></button>
         </div>
       </div>
     </div>
