@@ -148,12 +148,12 @@ button:hover:not(.star) {
   border-color: var(--accent);
 }
 
-#important {
+#important, #editImportant {
   display: flex;
   align-items: center;
 }
 
-#important img {
+#important img, #editImportant img {
   width: 1.5em;
   height: 1.5em;
   filter: var(--filter);
@@ -285,4 +285,18 @@ code {
   border-color: var(--border);
   font-family: "Fira Code";
   font-size: 0.8em;
+}
+
+.log-edit {
+  width: 1.2em;
+  height: 1.2em;
+  position: absolute;
+  right: 0;
+  filter: var(--icon-filter);
+  display: none;
+  cursor: pointer;
+}
+
+.log:hover .log-edit {
+  display: block;
 }
