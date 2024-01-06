@@ -40,6 +40,7 @@ function renderLogs(logs, parent) {
     logHeader.style.display = "flex"
     logHeader.style.alignItems = "center"
     logHeader.style.gap = "1em"
+    logHeader.style.position = "relative"
     logHeader.append(logDate)
     if (log.tag) {
       const tag = document.createElement("div")
